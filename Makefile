@@ -1,2 +1,3 @@
 build:
-	go build -o pinger
+	rm -f go_ping
+	go build -o go_ping
