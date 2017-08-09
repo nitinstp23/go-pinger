@@ -24,7 +24,10 @@ func main() {
 
 	pinger := p.NewPinger(*serviceUrl, *pingInterval)
 
-	if err := pinger.Ping(); err != nil {
-		log.Println("Error while pinging URL - ", *serviceUrl, err)
+	err := pinger.Ping()
+	if err != nil {
+		log.Println("Error while pinging URL", *serviceUrl, err)
+	} else {
+		log.Println("Ping successful", *serviceUrl)
 	}
 }
