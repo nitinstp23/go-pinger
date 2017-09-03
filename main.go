@@ -8,26 +8,30 @@ import (
 	p "github.com/nitinstp23/go-pinger/pinger"
 )
 
-func main() {
-	serviceUrl := flag.String("u", "", "HTTP endpoint URL {string} (Required)")
-	pingInterval := flag.Int("i", 5, "Ping Interval {int} (Required)")
+var (
+	ServiceUrl   = flag.String("u", "", "HTTP endpoint URL {string} (Required)")
+	PingInterval = flag.Int("i", 5, "Ping Interval {int} (Required)")
+)
 
+func init() {
 	flag.Parse()
 
-	if *serviceUrl == "" {
+	if *ServiceUrl == "" {
 		log.Printf("Missing required flags\n")
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
 
-	log.Printf("serviceUrl: %s, pingInterval: %v\n", *serviceUrl, *pingInterval)
+	log.Printf("ServiceUrl: %s, PingInterval: %v\n", *ServiceUrl, *PingInterval)
+}
 
-	pinger := p.NewPinger(*serviceUrl, *pingInterval)
+func main() {
+	pinger := p.NewPinger(*ServiceUrl, *PingInterval)
 
 	err := pinger.Ping()
 	if err != nil {
-		log.Println("Error while pinging URL", *serviceUrl, err)
+		log.Println("Error while pinging URL", *ServiceUrl, err)
 	} else {
-		log.Println("Ping successful", *serviceUrl)
+		log.Println("Ping successful", *ServiceUrl)
 	}
 }
