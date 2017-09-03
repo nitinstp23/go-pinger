@@ -9,8 +9,9 @@ import (
 )
 
 var (
-	ServiceUrl   = flag.String("u", "", "HTTP endpoint URL {string} (Required)")
-	PingInterval = flag.Int("i", 5, "Ping Interval {int} (Required)")
+	ServiceUrl     = flag.String("u", "", "HTTP endpoint URL {string} (Required)")
+	PingInterval   = flag.Int("i", 5, "Ping Interval {int} (Optional) (Default 5 seconds)")
+	RequestTimeout = flag.Int("t", 5, "Request Timeout {int} (Optional) (Default 2 seconds)")
 )
 
 func init() {
@@ -26,7 +27,7 @@ func init() {
 }
 
 func main() {
-	pinger := p.NewPinger(*ServiceUrl, *PingInterval)
+	pinger := p.NewPinger(*ServiceUrl, *PingInterval, *RequestTimeout)
 
 	err := pinger.Ping()
 	if err != nil {

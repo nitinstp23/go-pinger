@@ -7,23 +7,24 @@ import (
 )
 
 type Pinger struct {
-	url      string
-	interval int
+	url        string
+	interval   int
+	reqTimeout time.Duration
 }
 
-func NewPinger(url string, interval int) *Pinger {
+func NewPinger(url string, interval int, timeoutInt int) *Pinger {
 	return &Pinger{
-		url:      url,
-		interval: interval,
+		url:        url,
+		interval:   interval,
+		reqTimeout: time.Duration(time.Duration(timeoutInt) * time.Second),
 	}
 }
 
 func (p *Pinger) Ping() error {
-	timeout := time.Duration(time.Duration(5) * time.Second)
 	req, err := http.NewRequest("GET", p.url, nil)
 
 	client := &http.Client{
-		Timeout: timeout,
+		Timeout: p.reqTimeout,
 	}
 
 	resp, err := client.Do(req)

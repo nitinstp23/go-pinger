@@ -34,7 +34,7 @@ func TestPing(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			pinger := NewPinger(httpStub.URL+tc.url, 5)
+			pinger := NewPinger(httpStub.URL+tc.url, 5, 2)
 
 			err := pinger.Ping()
 
