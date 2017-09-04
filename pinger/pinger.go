@@ -8,14 +8,12 @@ import (
 
 type Pinger struct {
 	url        string
-	interval   int
 	reqTimeout time.Duration
 }
 
-func NewPinger(url string, interval int, timeoutInt int) *Pinger {
+func NewPinger(url string, timeoutInt int) *Pinger {
 	return &Pinger{
 		url:        url,
-		interval:   interval,
 		reqTimeout: time.Duration(time.Duration(timeoutInt) * time.Second),
 	}
 }
